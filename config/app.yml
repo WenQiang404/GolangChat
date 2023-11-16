@@ -1,0 +1,7 @@
+mysql:
+#  user: root
+#  password: wenqiang
+#  ip: 101.133.169.145
+#  port: 3306
+  dns: root:wenqiang@tcp(101.133.169.145:3306)/golangChat?charset=utf8mb3&parseTime=True&loc=Local
+
