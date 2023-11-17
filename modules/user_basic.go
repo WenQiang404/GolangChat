@@ -2,7 +2,6 @@ package modules
 
 import (
 	"gorm.io/gorm"
-	"time"
 )
 
 type UserBasic struct {
@@ -14,9 +13,9 @@ type UserBasic struct {
 	Email         string
 	ClientIp      string
 	ClientPort    string
-	LoginTime     time.Time
-	HeartBeatTime time.Time
-	LoginOutTime  time.Time `gorm:column:login_out_time`
+	LoginTime     string
+	HeartBeatTime string
+	LoginOutTime  string
 	IsLogOut      bool
 	DeviceInfo    string
 }
