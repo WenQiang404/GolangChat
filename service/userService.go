@@ -3,6 +3,7 @@ package service
 import (
 	"GolangChat/modules"
 	"GolangChat/utils"
+	"github.com/asaskevich/govalidator"
 	"github.com/gin-gonic/gin"
 	"strconv"
 )
@@ -68,16 +69,25 @@ func DeleteUser(c *gin.Context) {
 // @param id formData string false "ID"
 // @param name formData string false "name"
 // @param password formData string false "password"
+// @param email formData string false "email"
+// @param phone formData string false "phone"
 // @Success 200 {string} json{"code", "message"}
-// @Router /user/updateUser [get]
+// @Router /user/updateUser [post]
 func UpdateUser(c *gin.Context) {
 	user := modules.UserBasic{}
 	id, _ := strconv.Atoi(c.PostForm("id"))
 	user.ID = uint(id)
 	user.Name = c.PostForm("name")
 	user.Password = c.PostForm("password")
-
-	utils.DeleteUser(user)
+	user.Email = c.PostForm("email")
+	user.Phone = c.PostForm("phone")
+	_, err := govalidator.ValidateStruct(user)
+	if err != nil {
+		c.JSON(200, gin.H{
+			"message": "修改内容不匹配",
+		})
+	}
+	utils.UpdateUser(user)
 
 	c.JSON(200, gin.H{
 		"message": "修改成功",
