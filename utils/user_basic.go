@@ -26,5 +26,5 @@ func DeleteUser(user modules.UserBasic) *gorm.DB {
 }
 
 func UpdateUser(user modules.UserBasic) *gorm.DB {
-	return DB.Model(&user).Updates(modules.UserBasic{Name: user.Name, Password: user.Password})
+	return DB.Model(&user).Updates(modules.UserBasic{Name: user.Name, Password: user.Password, Email: user.Email, Phone: user.Phone})
 }
