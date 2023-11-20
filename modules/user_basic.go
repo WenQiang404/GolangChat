@@ -9,8 +9,8 @@ type UserBasic struct {
 	Identity      string
 	Name          string
 	Password      string
-	Phone         string
-	Email         string
+	Phone         string `valid:"matches(^1[3-9]{1}\\d{9}$)"`
+	Email         string `valid:"email"`
 	ClientIp      string
 	ClientPort    string
 	LoginTime     string
