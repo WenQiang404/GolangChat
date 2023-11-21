@@ -17,7 +17,8 @@ func Router() *gin.Engine {
 	//User相关
 	r.GET("/user/getUser", service.GetUser)
 	r.GET("/user/createUser", service.CreateUser)
-	r.GET("user/deleteUser", service.DeleteUser)
-	r.POST("user/updateUser", service.UpdateUser)
+	r.GET("/user/deleteUser", service.DeleteUser)
+	r.POST("/user/updateUser", service.UpdateUser)
+	r.POST("/Login", service.Login)
 	return r
 }
