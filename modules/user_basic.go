@@ -18,6 +18,7 @@ type UserBasic struct {
 	LoginOutTime  string
 	IsLogOut      bool
 	DeviceInfo    string
+	Random        string
 }
 
 func (table *UserBasic) TableName() string {
