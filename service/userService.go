@@ -3,8 +3,10 @@ package service
 import (
 	"GolangChat/modules"
 	"GolangChat/utils"
+	"fmt"
 	"github.com/asaskevich/govalidator"
 	"github.com/gin-gonic/gin"
+	"math/rand"
 	"strconv"
 )
 
@@ -29,17 +31,43 @@ func GetUser(c *gin.Context) {
 // @Router /user/createUser [get]
 func CreateUser(c *gin.Context) {
 	user := modules.UserBasic{}
+	name := c.Query("name")
+	//fmt.Println("name: " + name)
 	user.Name = c.Query("name")
 	password := c.Query("password")
 	repassword := c.Query("repassword")
+
 	if password != repassword {
 		c.JSON(-1, gin.H{
 			"message": "两次密码不一致",
 		})
 		return
-
 	}
-	user.Password = password
+	if name == "" {
+		c.JSON(-1, gin.H{
+			"message": "请输入用户名",
+		})
+		return
+	}
+	if password == "" {
+		c.JSON(-1, gin.H{
+			"message": "请输入密码",
+		})
+		return
+	}
+	data := utils.FindUserByName(name)
+	if data.Name != "" {
+		c.JSON(200, gin.H{
+			"message": "用户名已经注册",
+		})
+		return
+	}
+
+	random := fmt.Sprintf("%06d", rand.Int31())
+	user.Password = utils.RandomEncrypt(password, random)
+	fmt.Println(random)
+	user.Random = random
+	fmt.Println(user.Random)
 	utils.CreateUser(user)
 	c.JSON(200, gin.H{
 		"message": "添加用户成功",
@@ -92,4 +120,39 @@ func UpdateUser(c *gin.Context) {
 	c.JSON(200, gin.H{
 		"message": "修改成功",
 	})
+}
+
+// Login
+// @Summary 登录
+// @Tags 用户模块
+// @param name formData string false "name"
+// @param password formData string false "password"
+// @Success 200 {string} json{"code", "message"}
+// @Router /Login [get]
+func Login(c *gin.Context) {
+	loginName := c.Query("name")
+	LoginPassword := c.Query("password")
+	currentUser := utils.FindUserByName(loginName)
+
+	if currentUser.Name == "" {
+		c.JSON(1991, gin.H{
+			"message": "用户名不存在",
+		})
+		return
+	}
+
+	flag := utils.DeEncyypt(LoginPassword, currentUser.Random, currentUser.Password)
+	if !flag {
+		c.JSON(199, gin.H{
+			"message": "密码错误",
+		})
+		return
+	}
+	pwd := utils.RandomEncrypt(LoginPassword, currentUser.Random)
+	data := utils.FindUserByNameAndPwd(loginName, pwd)
+
+	c.JSON(200, gin.H{
+		"message": data,
+	})
+
 }
