@@ -1,6 +1,25 @@
 info:
   contact: {}
 paths:
+  /Login:
+    post:
+      parameters:
+      - description: name
+        in: formData
+        name: name
+        type: string
+      - description: password
+        in: formData
+        name: password
+        type: string
+      responses:
+        "200":
+          description: code", "message"}
+          schema:
+            type: string
+      summary: 登录
+      tags:
+      - 用户模块
   /index:
     get:
       responses:
@@ -58,7 +77,7 @@ paths:
       tags:
       - 获取用户
   /user/updateUser:
-    get:
+    post:
       parameters:
       - description: ID
         in: formData
@@ -66,11 +85,19 @@ paths:
         type: string
       - description: name
         in: formData
-        name: id
+        name: name
         type: string
       - description: password
         in: formData
-        name: id
+        name: password
+        type: string
+      - description: email
+        in: formData
+        name: email
+        type: string
+      - description: phone
+        in: formData
+        name: phone
         type: string
       responses:
         "200":

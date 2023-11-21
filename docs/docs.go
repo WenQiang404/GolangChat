@@ -15,6 +15,36 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/Login": {
+            "post": {
+                "tags": [
+                    "用户模块"
+                ],
+                "summary": "登录",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "name",
+                        "name": "name",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "description": "password",
+                        "name": "password",
+                        "in": "formData"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "code\", \"message\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/index": {
             "get": {
                 "tags": [
@@ -106,7 +136,7 @@ const docTemplate = `{
             }
         },
         "/user/updateUser": {
-            "get": {
+            "post": {
                 "tags": [
                     "用户模块"
                 ],
@@ -121,13 +151,25 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "name",
-                        "name": "id",
+                        "name": "name",
                         "in": "formData"
                     },
                     {
                         "type": "string",
                         "description": "password",
-                        "name": "id",
+                        "name": "password",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "description": "email",
+                        "name": "email",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "description": "phone",
+                        "name": "phone",
                         "in": "formData"
                     }
                 ],
