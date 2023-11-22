@@ -39,18 +39,21 @@ func CreateUser(c *gin.Context) {
 
 	if password != repassword {
 		c.JSON(-1, gin.H{
+			"code":    -1,
 			"message": "两次密码不一致",
 		})
 		return
 	}
 	if name == "" {
 		c.JSON(-1, gin.H{
+			"code":    -1,
 			"message": "请输入用户名",
 		})
 		return
 	}
 	if password == "" {
 		c.JSON(-1, gin.H{
+			"code":    -1,
 			"message": "请输入密码",
 		})
 		return
@@ -58,6 +61,7 @@ func CreateUser(c *gin.Context) {
 	data := utils.FindUserByName(name)
 	if data.Name != "" {
 		c.JSON(200, gin.H{
+			"code":    -1,
 			"message": "用户名已经注册",
 		})
 		return
@@ -70,7 +74,9 @@ func CreateUser(c *gin.Context) {
 	fmt.Println(user.Random)
 	utils.CreateUser(user)
 	c.JSON(200, gin.H{
+		"code":    0,
 		"message": "添加用户成功",
+		"data":    user,
 	})
 }
 
@@ -87,7 +93,9 @@ func DeleteUser(c *gin.Context) {
 	utils.DeleteUser(user)
 
 	c.JSON(200, gin.H{
+		"code":    0,
 		"message": "删除用户成功",
+		"data":    user,
 	})
 }
 
@@ -112,12 +120,14 @@ func UpdateUser(c *gin.Context) {
 	_, err := govalidator.ValidateStruct(user)
 	if err != nil {
 		c.JSON(200, gin.H{
+			"code":    -1,
 			"message": "修改内容不匹配",
 		})
 	}
 	utils.UpdateUser(user)
 
 	c.JSON(200, gin.H{
+		"code":    0,
 		"message": "修改成功",
 	})
 }
@@ -136,6 +146,7 @@ func Login(c *gin.Context) {
 
 	if currentUser.Name == "" {
 		c.JSON(1991, gin.H{
+			"code":    -1,
 			"message": "用户名不存在",
 		})
 		return
@@ -144,6 +155,7 @@ func Login(c *gin.Context) {
 	flag := utils.DeEncyypt(LoginPassword, currentUser.Random, currentUser.Password)
 	if !flag {
 		c.JSON(199, gin.H{
+			"code":    -1,
 			"message": "密码错误",
 		})
 		return
@@ -152,7 +164,9 @@ func Login(c *gin.Context) {
 	data := utils.FindUserByNameAndPwd(loginName, pwd)
 
 	c.JSON(200, gin.H{
-		"message": data,
+		"code":    0, //0	成功 ，-1 失败
+		"message": "Success to login",
+		"data":    data,
 	})
 
 }
