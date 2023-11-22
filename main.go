@@ -9,6 +9,7 @@ import (
 func main() {
 	utils.InitConfig()
 	utils.InitMySQL()
+	utils.InitRedis()
 	router := router2.Router()
 	err := router.Run("127.0.0.1:8080")
 	if err != nil {
