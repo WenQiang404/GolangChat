@@ -4,6 +4,7 @@ import (
 	"GolangChat/modules"
 	"fmt"
 	"gorm.io/gorm"
+	"time"
 )
 
 func GetUserList() []*modules.UserBasic {
@@ -47,5 +48,10 @@ func FindUserByPhone(phone string) *gorm.DB {
 func FindUserByNameAndPwd(name, password string) modules.UserBasic {
 	user := modules.UserBasic{}
 	DB.Where("name = ? and password = ?", name, password).First(&user)
+	//token加密
+	timeNow := fmt.Sprintf("%d", time.Now().Unix())
+
+	temp := Md5Encode(timeNow)
+	DB.Model(&user).Where("id = ?", user.ID).Update("Identity", temp)
 	return user
 }
