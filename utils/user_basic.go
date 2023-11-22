@@ -46,6 +46,6 @@ func FindUserByPhone(phone string) *gorm.DB {
 }
 func FindUserByNameAndPwd(name, password string) modules.UserBasic {
 	user := modules.UserBasic{}
-	DB.Where("name = ? and pass_word = ?", name, password).First(&user)
+	DB.Where("name = ? and password = ?", name, password).First(&user)
 	return user
 }
