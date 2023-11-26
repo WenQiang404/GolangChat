@@ -49,6 +49,13 @@ func InitRedis() {
 		PoolSize:     viper.GetInt("redis.poolSize"),
 		MinIdleConns: viper.GetInt("redis.minIdleConn"),
 	})
+	ctx := context.Background()
+	pong, err := REDIS.Ping(ctx).Result()
+	if err != nil {
+		fmt.Println("redis initilization....", err.Error())
+	} else {
+		fmt.Println("ok", pong)
+	}
 
 }
 
@@ -65,8 +72,13 @@ func Publish(ctx context.Context, channel string, msg string) error {
 
 // 订阅Redis消息
 func Subscribe(ctx context.Context, channel string) (string, error) {
-	sub := REDIS.PSubscribe(ctx, channel)
+	sub := REDIS.Subscribe(ctx, channel)
+	fmt.Println("Subscribe the message......", ctx)
 	msg, err := sub.ReceiveMessage(ctx)
+	if err != nil {
+		fmt.Println(err.Error())
+		return "", err
+	}
 	fmt.Println(msg.Payload)
 	return msg.Payload, err
 }
