@@ -14,8 +14,10 @@ func main() {
 	}
 
 	// 迁移 schema
-	db.AutoMigrate(&modules.UserBasic{})
-
+	//db.AutoMigrate(&modules.UserBasic{})		//user表
+	//db.AutoMigrate(&modules.MessageBasic{})		//message表
+	db.AutoMigrate(&modules.RelationBasic{}) //relation表
+	db.AutoMigrate(&modules.GroupBasic{})    //group表
 	// Create
 	user := &modules.UserBasic{}
 	user.Name = "cwq"
