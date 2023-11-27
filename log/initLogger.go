@@ -21,7 +21,7 @@ func NewLogger() *Logger {
 
 	//==============================输出文件(INFO)==============================
 	infoBlogLogger := &lumberjack.Logger{
-		Filename:   "./log/info.log",
+		Filename:   "log/info.log",
 		MaxSize:    50,
 		MaxBackups: 30,
 		MaxAge:     90, //日志最大保存天数
@@ -32,7 +32,7 @@ func NewLogger() *Logger {
 
 	//==============================输出文件(ERROR)==============================
 	errBlogLogger := &lumberjack.Logger{
-		Filename:   "./log/err.log",
+		Filename:   "log/err.log",
 		MaxSize:    50,
 		MaxBackups: 30,
 		MaxAge:     90, //日志最大保存天数
@@ -41,6 +41,16 @@ func NewLogger() *Logger {
 	}
 	coreList = append(coreList, zapcore.NewCore(encoder, zapcore.AddSync(errBlogLogger), zapcore.ErrorLevel))
 
+	//==============================输出文件(Fatal)==============================
+	fatalBlogLogger := &lumberjack.Logger{
+		Filename:   "log/fatal.log",
+		MaxSize:    50,
+		MaxBackups: 30,
+		MaxAge:     90, //日志最大保存天数
+		LocalTime:  true,
+		Compress:   false,
+	}
+	coreList = append(coreList, zapcore.NewCore(encoder, zapcore.AddSync(fatalBlogLogger), zapcore.ErrorLevel))
 	//==============================把所有的output,都汇聚成coreList，一次性初始化==============================
 	core := zapcore.NewTee(coreList...)
 
