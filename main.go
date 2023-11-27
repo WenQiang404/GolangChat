@@ -1,10 +1,16 @@
 package main
 
 import (
+	log2 "GolangChat/log"
 	router2 "GolangChat/router"
 	"GolangChat/utils"
-	"log"
 )
+
+func newLogger() *log2.Logger {
+	return log2.NewLogger()
+}
+
+var log = newLogger()
 
 func main() {
 	utils.InitConfig()

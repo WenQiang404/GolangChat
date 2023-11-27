@@ -1,6 +1,7 @@
 package utils
 
 import (
+	log2 "GolangChat/log"
 	"context"
 	"fmt"
 	"github.com/go-redis/redis/v8"
@@ -18,12 +19,18 @@ var (
 	REDIS *redis.Client
 )
 
+func newLogger() *log2.Logger {
+	return log2.NewLogger()
+}
+
+var myLog = newLogger()
+
 func InitConfig() {
 	viper.SetConfigName("app")
 	viper.AddConfigPath("config")
 	err := viper.ReadInConfig()
 	if err != nil {
-		log.Fatal(err.Error())
+		myLog.Fatal("Failed to init" + err.Error())
 	}
 
 }
@@ -37,8 +44,12 @@ func InitMySQL() {
 			Colorful:      true,
 		},
 	)
-	DB, _ = gorm.Open(mysql.Open(viper.GetString("mysql.dns")),
+	_, err := gorm.Open(mysql.Open(viper.GetString("mysql.dns")),
 		&gorm.Config{Logger: newLogger})
+	if err != nil {
+		myLog.Error("Failed to init the MySQL table" + err.Error())
+	}
+	myLog.Info("Init the mySql at")
 }
 
 func InitRedis() {
@@ -50,11 +61,11 @@ func InitRedis() {
 		MinIdleConns: viper.GetInt("redis.minIdleConn"),
 	})
 	ctx := context.Background()
-	pong, err := REDIS.Ping(ctx).Result()
+	_, err := REDIS.Ping(ctx).Result()
 	if err != nil {
-		fmt.Println("redis initilization....", err.Error())
+		myLog.Error("redis initilization...." + err.Error())
 	} else {
-		fmt.Println("ok", pong)
+		myLog.Info("success to init redis at ")
 	}
 
 }
@@ -76,9 +87,9 @@ func Subscribe(ctx context.Context, channel string) (string, error) {
 	fmt.Println("Subscribe the message......", ctx)
 	msg, err := sub.ReceiveMessage(ctx)
 	if err != nil {
-		fmt.Println(err.Error())
+		myLog.Error(err.Error())
 		return "", err
 	}
-	fmt.Println(msg.Payload)
+
 	return msg.Payload, err
 }
