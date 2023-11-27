@@ -23,6 +23,7 @@ func Router() *gin.Engine {
 
 	//Message相关
 	r.GET("/user/sendMsg", service.SendMsg)
+	r.GET("user/sendUserMsg", service.SendUserMessage)
 
 	return r
 
