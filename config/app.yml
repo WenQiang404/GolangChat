@@ -5,3 +5,10 @@ mysql:
 #  port: 3306
   dns: root:wenqiang@tcp(101.133.169.145:3306)/golangChat?charset=utf8mb3&parseTime=True&loc=Local
 
+redis:
+  addr: "101.133.169.145:6379"
+  password: ""
+  DB: 0
+  poolSize: 30
+  minIdleConn: 30
+
