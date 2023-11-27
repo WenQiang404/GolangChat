@@ -170,3 +170,7 @@ func Login(c *gin.Context) {
 	})
 
 }
+
+func SendUserMessage(c *gin.Context) {
+	modules.Chat(c.Writer, c.Request)
+}
