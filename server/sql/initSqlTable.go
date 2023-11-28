@@ -1,10 +1,10 @@
 package main
 
 import (
-	"GolangChat/modules"
 	"fmt"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
+	modules2 "server/modules"
 )
 
 func main() {
@@ -16,10 +16,10 @@ func main() {
 	// 迁移 schema
 	//db.AutoMigrate(&modules.UserBasic{})		//user表
 	//db.AutoMigrate(&modules.MessageBasic{})		//message表
-	db.AutoMigrate(&modules.RelationBasic{}) //relation表
-	db.AutoMigrate(&modules.GroupBasic{})    //group表
+	//db.AutoMigrate(&modules2.RelationBasic{}) //relation表
+	//db.AutoMigrate(&modules2.GroupBasic{})    //group表
 	// Create
-	user := &modules.UserBasic{}
+	user := &modules2.UserBasic{}
 	user.Name = "cwq"
 	db.Create(user)
 

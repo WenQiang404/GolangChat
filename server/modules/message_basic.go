@@ -1,7 +1,6 @@
 package modules
 
 import (
-	log2 "GolangChat/log"
 	"encoding/json"
 	"fmt"
 	"github.com/gorilla/websocket"
@@ -9,6 +8,7 @@ import (
 	"gorm.io/gorm"
 	"net"
 	"net/http"
+	log2 "server/log"
 	"strconv"
 	"sync"
 )

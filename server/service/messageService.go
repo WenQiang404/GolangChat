@@ -1,12 +1,12 @@
 package service
 
 import (
-	log2 "GolangChat/log"
-	"GolangChat/utils"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
 	"net/http"
+	log2 "server/log"
+	"server/utils"
 	"time"
 )
 

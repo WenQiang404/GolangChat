@@ -1,0 +1,29 @@
+2023-11-27T20:54:20.248+0800	INFO	GolangChat/main.go:17	Init the mySql at27278-08-20 118:278:278
+2023-11-27T20:54:20.293+0800	INFO	GolangChat/main.go:18	success to init redis at 27278-08-20 118:278:278
+2023-11-27T21:11:22.153+0800	INFO	GolangChat/main.go:17	Init the mySql at
+2023-11-27T21:11:22.206+0800	INFO	GolangChat/main.go:18	success to init redis at 
+2023-11-27T21:11:43.582+0800	ERROR	modules/message_basic.go:166	invalid character 'h' looking for beginning of value
+GolangChat/modules.udpReceiveProc
+	D:/Project/go/GolangChat/modules/message_basic.go:166
+2023-11-27T21:14:25.878+0800	ERROR	modules/message_basic.go:166	json: cannot unmarshal number into Go value of type modules.MessageBasic
+GolangChat/modules.udpReceiveProc
+	D:/Project/go/GolangChat/modules/message_basic.go:166
+2023-11-27T21:29:29.418+0800	INFO	GolangChat/main.go:17	Init the mySql at
+2023-11-27T21:29:29.477+0800	INFO	GolangChat/main.go:18	success to init redis at 
+2023-11-27T21:29:57.896+0800	ERROR	modules/message_basic.go:167	json: cannot unmarshal number into Go value of type modules.MessageBasic
+GolangChat/modules.udpReceiveProc
+	D:/Project/go/GolangChat/modules/message_basic.go:167
+2023-11-27T21:31:51.399+0800	INFO	GolangChat/main.go:17	Init the mySql at
+2023-11-27T21:31:51.464+0800	INFO	GolangChat/main.go:18	success to init redis at 
+2023-11-27T21:32:25.032+0800	ERROR	modules/message_basic.go:167	json: cannot unmarshal number into Go value of type modules.MessageBasic
+GolangChat/modules.udpReceiveProc
+	D:/Project/go/GolangChat/modules/message_basic.go:167
+2023-11-27T21:32:25.065+0800	ERROR	runtime/asm_amd64.s:1598	json: cannot unmarshal number into Go value of type modules.MessageBasic
+runtime.goexit
+	C:/Users/ww/sdk/go1.20.4/src/runtime/asm_amd64.s:1598
+2023-11-28T11:08:25.153+0800	INFO	server/main.go:17	Init the mySql at
+2023-11-28T11:08:25.428+0800	INFO	server/main.go:18	success to init redis at 
+2023-11-28T11:37:28.896+0800	INFO	server/main.go:17	Init the mySql at
+2023-11-28T11:37:28.970+0800	INFO	server/main.go:18	success to init redis at 
+2023-11-28T11:49:14.322+0800	INFO	server/main.go:17	Init the mySql at
+2023-11-28T11:49:14.674+0800	INFO	server/main.go:18	success to init redis at 

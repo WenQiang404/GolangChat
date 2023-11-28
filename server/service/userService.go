@@ -1,12 +1,12 @@
 package service
 
 import (
-	"GolangChat/modules"
-	"GolangChat/utils"
 	"fmt"
 	"github.com/asaskevich/govalidator"
 	"github.com/gin-gonic/gin"
 	"math/rand"
+	modules2 "server/modules"
+	"server/utils"
 	"strconv"
 )
 
@@ -30,7 +30,7 @@ func GetUser(c *gin.Context) {
 // @Success 200 {string} json{"code", "message"}
 // @Router /user/createUser [get]
 func CreateUser(c *gin.Context) {
-	user := modules.UserBasic{}
+	user := modules2.UserBasic{}
 	name := c.Query("name")
 	//fmt.Println("name: " + name)
 	user.Name = c.Query("name")
@@ -87,7 +87,7 @@ func CreateUser(c *gin.Context) {
 // @Success 200 {string} json{"code", "message"}
 // @Router /user/deleteUser [get]
 func DeleteUser(c *gin.Context) {
-	user := modules.UserBasic{}
+	user := modules2.UserBasic{}
 	id, _ := strconv.Atoi(c.Query("id"))
 	user.ID = uint(id)
 	utils.DeleteUser(user)
@@ -110,7 +110,7 @@ func DeleteUser(c *gin.Context) {
 // @Success 200 {string} json{"code", "message"}
 // @Router /user/updateUser [post]
 func UpdateUser(c *gin.Context) {
-	user := modules.UserBasic{}
+	user := modules2.UserBasic{}
 	id, _ := strconv.Atoi(c.PostForm("id"))
 	user.ID = uint(id)
 	user.Name = c.PostForm("name")
@@ -172,5 +172,5 @@ func Login(c *gin.Context) {
 }
 
 func SendUserMessage(c *gin.Context) {
-	modules.Chat(c.Writer, c.Request)
+	modules2.Chat(c.Writer, c.Request)
 }

@@ -1,9 +1,9 @@
 package utils
 
 import (
-	"GolangChat/modules"
 	"fmt"
 	"gorm.io/gorm"
+	"server/modules"
 	"time"
 )
 
