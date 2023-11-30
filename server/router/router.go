@@ -6,10 +6,12 @@ import (
 	ginSwagger "github.com/swaggo/gin-swagger"
 	"server/docs"
 	"server/service"
+	"server/utils"
 )
 
 func Router() *gin.Engine {
 	r := gin.Default()
+	r.Use(utils.Cors()) //解决跨域问题
 	docs.SwaggerInfo.BasePath = ""
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 
