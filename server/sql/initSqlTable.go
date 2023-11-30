@@ -14,7 +14,7 @@ func main() {
 	}
 
 	// 迁移 schema
-	//db.AutoMigrate(&modules.UserBasic{})		//user表
+	db.AutoMigrate(&modules2.UserBasic{}) //user表
 	//db.AutoMigrate(&modules.MessageBasic{})		//message表
 	//db.AutoMigrate(&modules2.RelationBasic{}) //relation表
 	//db.AutoMigrate(&modules2.GroupBasic{})    //group表
