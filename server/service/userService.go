@@ -5,6 +5,7 @@ import (
 	"github.com/asaskevich/govalidator"
 	"github.com/gin-gonic/gin"
 	"math/rand"
+	"net/http"
 	modules2 "server/modules"
 	"server/utils"
 	"strconv"
@@ -32,33 +33,33 @@ func GetUser(c *gin.Context) {
 func CreateUser(c *gin.Context) {
 	user := modules2.UserBasic{}
 	name := c.Query("name")
-	//fmt.Println("name: " + name)
-	user.Name = c.Query("name")
+	user.Name = name
 	password := c.Query("password")
 	repassword := c.Query("repassword")
 
 	if password != repassword {
-		c.JSON(-1, gin.H{
+		c.JSON(200, gin.H{
 			"code":    -1,
 			"message": "两次密码不一致",
 		})
 		return
 	}
 	if name == "" {
-		c.JSON(-1, gin.H{
+		c.JSON(200, gin.H{
 			"code":    -1,
 			"message": "请输入用户名",
 		})
 		return
 	}
 	if password == "" {
-		c.JSON(-1, gin.H{
+		c.JSON(200, gin.H{
 			"code":    -1,
 			"message": "请输入密码",
 		})
 		return
 	}
 	data := utils.FindUserByName(name)
+	//fmt.Println("+++++++++++++++++++++++")
 	if data.Name != "" {
 		c.JSON(200, gin.H{
 			"code":    -1,
@@ -69,9 +70,7 @@ func CreateUser(c *gin.Context) {
 
 	random := fmt.Sprintf("%06d", rand.Int31())
 	user.Password = utils.RandomEncrypt(password, random)
-	fmt.Println(random)
 	user.Random = random
-	fmt.Println(user.Random)
 	utils.CreateUser(user)
 	c.JSON(200, gin.H{
 		"code":    0,
@@ -138,14 +137,24 @@ func UpdateUser(c *gin.Context) {
 // @param name formData string false "name"
 // @param password formData string false "password"
 // @Success 200 {string} json{"code", "message"}
-// @Router /Login [get]
+// @Router /Login [post]
 func Login(c *gin.Context) {
-	loginName := c.Query("name")
-	LoginPassword := c.Query("password")
+	err := c.Request.ParseForm()
+	if err != nil {
+		log.Error("处理解析错误," + err.Error())
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": "Failed to parse form",
+		})
+		return
+	}
+	loginName := c.PostForm("name")
+	LoginPassword := c.PostForm("password")
+	//loginName := r.Form.Get("name")
+	//LoginPassword := r.Form.Get("password")
 	currentUser := utils.FindUserByName(loginName)
 
 	if currentUser.Name == "" {
-		c.JSON(1991, gin.H{
+		c.JSON(200, gin.H{
 			"code":    -1,
 			"message": "用户名不存在",
 		})
@@ -154,7 +163,7 @@ func Login(c *gin.Context) {
 
 	flag := utils.DeEncyypt(LoginPassword, currentUser.Random, currentUser.Password)
 	if !flag {
-		c.JSON(199, gin.H{
+		c.JSON(200, gin.H{
 			"code":    -1,
 			"message": "密码错误",
 		})
