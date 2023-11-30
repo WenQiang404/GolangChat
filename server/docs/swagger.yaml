@@ -2,7 +2,7 @@ info:
   contact: {}
 paths:
   /Login:
-    post:
+    get:
       parameters:
       - description: name
         in: formData

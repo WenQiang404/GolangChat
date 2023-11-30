@@ -5,7 +5,7 @@
     },
     "paths": {
         "/Login": {
-            "post": {
+            "get": {
                 "tags": [
                     "用户模块"
                 ],
