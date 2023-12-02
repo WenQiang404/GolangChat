@@ -14,6 +14,7 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import MyImg from 'D:/Project/go/GolangChat/blogweb/src/img/index.jpg'
 import {useState} from "react";
+import { useNavigate } from 'react-router-dom';
 
 function Copyright(props) {
 
@@ -29,35 +30,39 @@ function Copyright(props) {
     );
 }
 
-// TODO remove, this demo shouldn't need to reset the theme.
 
 const defaultTheme = createTheme();
 
 export default function SignInSide() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-
+    // 获取路由历史记录对象
+    const navigate = useNavigate();
     const handleSubmit = async (event) => {
         event.preventDefault();
         const formData = new FormData();
         formData.append('name',username);
         formData.append('password',password);
-        const response = await fetch('http://localhost:8081/Login', {
-            method: 'POST',
-            // headers: {
-            //     'Content-Type': 'application/json',
-            // },
-            body: formData,
-        });
+        try{
+            const response = await fetch('http://localhost:8080/Login', {
+                method: 'POST',
+                body: formData,
+            });
+            if (response.ok) {
+                const jsonData = await response.json(); //获取响应json中的数据
+                const identity =jsonData.data["Identity"];
+                localStorage.setItem('token', identity);
+                // window.location.href = '../chatRoom/chatRoom.js';
 
-        const {data} = response.body;
-        console.log(data);
-        const identity = response.data["Identity"];
-        if(data.code===0) {
-            //localStorage.setItem('token', identity);
-            window.location.href = 'blogweb/src/component/welcome/welcome.js';
-        } else {
-            alert('Invalid credentials');
+                // 执行页面跳转
+               navigate('/chatroom');
+
+            } else {
+                alert('Invalid credentials');
+                console.log('Error:', response.status);
+            }
+        }catch (error) {
+            console.log("Error to fetch:", error)
         }
     };
 
@@ -151,3 +156,6 @@ export default function SignInSide() {
         </ThemeProvider>
     );
 }
+
+
+
