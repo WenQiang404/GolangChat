@@ -27,7 +27,7 @@ var myLog = newLogger()
 
 func InitConfig() {
 	viper.SetConfigName("app")
-	viper.AddConfigPath("D://Project//go//GolangChat//config")
+	viper.AddConfigPath("config")
 	err := viper.ReadInConfig()
 	if err != nil {
 		myLog.Fatal("Failed to init" + err.Error())

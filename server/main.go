@@ -13,9 +13,9 @@ func newLogger() *log2.Logger {
 var log = newLogger()
 
 func main() {
-	_ = utils.InitConfig()
-	_ = utils.InitMySQL()
-	_ = utils.InitRedis()
+	utils.InitConfig()
+	utils.InitMySQL()
+	utils.InitRedis()
 	r := router.Router()
 	err := r.Run("127.0.0.1:8080")
 	if err != nil {
