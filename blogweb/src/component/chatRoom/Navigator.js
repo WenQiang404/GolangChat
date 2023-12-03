@@ -12,11 +12,10 @@ import PeopleIcon from '@mui/icons-material/People';
 import DnsRoundedIcon from '@mui/icons-material/DnsRounded';
 import PermMediaOutlinedIcon from '@mui/icons-material/PhotoSizeSelectActual';
 import PublicIcon from '@mui/icons-material/Public';
-import SettingsEthernetIcon from '@mui/icons-material/SettingsEthernet';
-import SettingsInputComponentIcon from '@mui/icons-material/SettingsInputComponent';
-import TimerIcon from '@mui/icons-material/Timer';
-import SettingsIcon from '@mui/icons-material/Settings';
-import PhonelinkSetupIcon from '@mui/icons-material/PhonelinkSetup';
+import personalPage from "../personalMsg/personalPage";
+import groupPage from "./groupPage";
+import Content from "./Content";
+import ContactPage from "./contactPage";
 
 const categories = [
     {
@@ -26,25 +25,13 @@ const categories = [
                 id: '个人资料',
                 icon: <PeopleIcon />,
                 active: true,
+                className:'personal',
             },
-            { id: '群聊', icon: <DnsRoundedIcon /> },
-            { id: '图片', icon: <PermMediaOutlinedIcon /> },
-            { id: '联系人', icon: <PublicIcon /> },
-            // { id: 'Functions', icon: <SettingsEthernetIcon /> },
-            // {
-            //     id: 'Machine learning',
-            //     icon: <SettingsInputComponentIcon />,
-            // },
+            { id: '群聊', icon: <DnsRoundedIcon />,className:'group', },
+            { id: '图片', icon: <PermMediaOutlinedIcon />,className:'picture', },
+            { id: '联系人', icon: <PublicIcon />,className:'contact', },
         ],
     },
-    // {
-    //     id: 'Quality',
-    //     children: [
-    //         { id: 'Analytics', icon: <SettingsIcon /> },
-    //         { id: 'Performance', icon: <TimerIcon /> },
-    //         { id: 'Test Lab', icon: <PhonelinkSetupIcon /> },
-    //     ],
-    // },
 ];
 
 const item = {
@@ -64,12 +51,35 @@ const itemCategory = {
 
 export default function Navigator(props) {
     const { ...other } = props;
+    const defaultnavigator = ""
+    const [selectOption, setSelectedOption] = React.useState(defaultnavigator);
+    const handleClick = (option) => {
+        setSelectedOption(option);
+    }
+    const renderPage = (selectOption) => {
+        switch (selectOption) {
+            // case 'personal':
+            //     return <personalPage/>;
+            //     break;
+            // case 'picture':
+            //     contentcomponent = <picturePage/>;
+            //     break;
+            // case 'group':
+            //     contentcomponent = <groupPage/>;
+            //     break;
+            case 'contact':
+                return <ContactPage/>;
+            case 'room':
+                return <Content/>;
+    }
 
+
+    };
     return (
         <Drawer variant="permanent" {...other}>
             <List disablePadding>
                 <ListItem sx={{ ...item, ...itemCategory, fontSize: 22, color: '#fff' }}>
-                    卢卢聊天室
+                    聊天室
                 </ListItem>
                 <ListItem sx={{ ...item, ...itemCategory }}>
                     <ListItemIcon>
@@ -77,21 +87,25 @@ export default function Navigator(props) {
                     </ListItemIcon>
                     <ListItemText>聊天大厅</ListItemText>
                 </ListItem>
-                {categories.map(({ id, children }) => (
+                {categories.map(({ id, children}) => (
                     <Box key={id} sx={{ bgcolor: '#101F33' }}>
                         <ListItem sx={{ py: 2, px: 3 }}>
                             <ListItemText sx={{ color: '#fff' }}>{id}</ListItemText>
                         </ListItem>
-                        {children.map(({ id: childId, icon, active }) => (
+                        {children.map(({ id: childId, icon, active ,className}) => (
                             <ListItem disablePadding key={childId}>
-                                <ListItemButton selected={active} sx={item}>
+                                <ListItemButton selected={active} sx={item} onclick={() => handleClick(setSelectedOption(className))}>
                                     <ListItemIcon>{icon}</ListItemIcon>
                                     <ListItemText>{childId}</ListItemText>
                                 </ListItemButton>
                             </ListItem>
                         ))}
+                        <div>
+                            {renderPage(selectOption)}
+                        </div>
                         <Divider sx={{ mt: 2 }} />
                     </Box>
+
                 ))}
             </List>
         </Drawer>
