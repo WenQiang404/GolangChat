@@ -8,11 +8,6 @@ import Link from '@mui/material/Link';
 import Navigator from './Navigator';
 import Content from './Content';
 import Header from './Header';
-import personal from "../personalMsg/personalPage";
-import picturePage from "../picture/picturePage";
-import personalPage from "../personalMsg/personalPage";
-import groupPage from "../groupMsg/groupPage";
-import contactPage from "../contact/contactPage";
 
 function Copyright() {
     return (
@@ -172,36 +167,11 @@ theme = {
 const drawerWidth = 256;
 
 export default function Paperbase() {
-    const defaultnavigator = "room"
     const [mobileOpen, setMobileOpen] = React.useState(false);
-    const [selectOption, setSelectedOption] = React.useState(defaultnavigator);
     const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
-
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
     };
-    const handleClick = (option) => {
-        setSelectedOption(option);
-    }
-        let contentcomponent;
-        switch (selectOption) {
-            case 'personal':
-                contentcomponent = <personalPage/>;
-                break;
-            case 'picture':
-                contentcomponent = <picturePage/>;
-                break;
-            case 'group':
-                contentcomponent = <groupPage/>;
-                break;
-            case 'contact':
-                contentcomponent = <contactPage/>;
-                break;
-            case 'room':
-                contentcomponent = <Content/>;
-                break;
-
-        };
     return (
         <ThemeProvider theme={theme}>
             <Box sx={{ display: 'flex', minHeight: '100vh' }}>
@@ -216,20 +186,18 @@ export default function Paperbase() {
                             variant="temporary"
                             open={mobileOpen}
                             onClose={handleDrawerToggle}
-                            onOptionClick={handleClick}
                         />
                     )}
 
                     <Navigator
                         PaperProps={{ style: { width: drawerWidth } }}
                         sx={{ display: { sm: 'block', xs: 'none' } }}
-                        onOptionClick={handleClick}
                     />
                 </Box>
                 <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
                     <Header onDrawerToggle={handleDrawerToggle} />
                     <Box component="main" sx={{ flex: 1, py: 6, px: 4, bgcolor: '#eaeff1' }}>
-                        {contentcomponent}
+                        <Content/>
                     </Box>
                     <Box component="footer" sx={{ p: 2, bgcolor: '#eaeff1' }}>
                         <Copyright />
