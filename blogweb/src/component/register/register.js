@@ -1,20 +1,21 @@
-import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Paper from '@mui/material/Paper';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import MyImg from 'D:/Project/go/GolangChat/blogweb/src/img/index.jpg'
+import {createTheme, ThemeProvider} from "@mui/material/styles";
+import Grid from "@mui/material/Grid";
+import CssBaseline from "@mui/material/CssBaseline";
+import MyImg from "*.jpg";
+import Paper from "@mui/material/Paper";
+import Box from "@mui/material/Box";
+import Avatar from "@mui/material/Avatar";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
+import TextField from "@mui/material/TextField";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import Button from "@mui/material/Button";
+import Link from "@mui/material/Link";
+import * as React from "react";
 import {useState} from "react";
-import { useNavigate } from 'react-router-dom';
+import {useNavigate} from "react-router-dom";
+
 
 function Copyright(props) {
 
@@ -30,32 +31,32 @@ function Copyright(props) {
     );
 }
 
-
 const defaultTheme = createTheme();
 
-export default function SignInSide() {
+function Register() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    // 获取路由历史记录对象
-    const navigate = useNavigate();
+    const [repassword, setRePassword] = useState('');
     const handleSubmit = async (event) => {
         event.preventDefault();
         const formData = new FormData();
         formData.append('name',username);
         formData.append('password',password);
+        formData.append('repassword',repassword);
         try{
-            const response = await fetch('http://localhost:8080/Login', {
-                method: 'POST',
+            const response = await fetch('http://localhost:8080/user/createUser', {
+                method: 'GET',
                 body: formData,
             });
             if (response.ok) {
                 const jsonData = await response.json(); //获取响应json中的数据
                 const identity =jsonData.data["Identity"];
+                const navigate = useNavigate();
                 localStorage.setItem('token', identity);
                 // window.location.href = '../chatRoom/chatRoom.js';
 
                 // 执行页面跳转
-               navigate('/chatroom');
+                navigate('/SignInside');
 
             } else {
                 alert('Invalid credentials');
@@ -98,7 +99,7 @@ export default function SignInSide() {
                             <LockOutlinedIcon />
                         </Avatar>
                         <Typography component="h1" variant="h5">
-                            Sign in
+                            Register
                         </Typography>
                         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
                             <TextField
@@ -124,6 +125,30 @@ export default function SignInSide() {
                                 autoComplete="current-password"
                                 onChange={(event) => setPassword(event.target.value)}
                             />
+                            <TextField
+                                margin="password"
+                                required
+                                fullWidth
+                                name="repassword"
+                                label="repassword"
+                                type="repassword"
+                                value={repassword}
+                                id="repassword"
+                                autoComplete="current-repassword"
+                                onChange={(event) => setRePassword(event.target.value)}
+                            />
+                            {/*<TextField*/}
+                            {/*    margin="normal"*/}
+                            {/*    required*/}
+                            {/*    fullWidth*/}
+                            {/*    name="phone"*/}
+                            {/*    label="phone"*/}
+                            {/*    type="phone"*/}
+                            {/*    value={phone}*/}
+                            {/*    id="phone"*/}
+                            {/*    autoComplete="current-phone"*/}
+                            {/*    onChange={(event) => setPhone(event.target.value)}*/}
+                            {/*/>*/}
                             <FormControlLabel
                                 control={<Checkbox value="remember" color="primary" />}
                                 label="Remember me"
@@ -134,17 +159,12 @@ export default function SignInSide() {
                                 variant="contained"
                                 sx={{ mt: 3, mb: 2 }}
                             >
-                                Sign In
+                               Register
                             </Button>
                             <Grid container>
                                 <Grid item xs>
                                     <Link href="#" variant="body2">
-                                        Forgot password?
-                                    </Link>
-                                </Grid>
-                                <Grid item>
-                                    <Link href="#" variant="body2">
-                                        {"Don't have an account? Sign Up"}
+                                        {"Already has account? Return to login"}
                                     </Link>
                                 </Grid>
                             </Grid>
@@ -156,6 +176,3 @@ export default function SignInSide() {
         </ThemeProvider>
     );
 }
-
-
-
