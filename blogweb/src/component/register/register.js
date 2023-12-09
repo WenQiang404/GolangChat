@@ -1,7 +1,6 @@
 import {createTheme, ThemeProvider} from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
 import CssBaseline from "@mui/material/CssBaseline";
-import MyImg from "*.jpg";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
@@ -14,7 +13,7 @@ import Button from "@mui/material/Button";
 import Link from "@mui/material/Link";
 import * as React from "react";
 import {useState} from "react";
-import {useNavigate} from "react-router-dom";
+//import {useNavigate} from "react-router-dom";
 
 
 function Copyright(props) {
@@ -24,7 +23,6 @@ function Copyright(props) {
             {'Copyright © '}
             <Link color="inherit" href="https://mui.com/">
                 lulu聊天室
-
             </Link>{' '}
             {new Date().getFullYear()}
             {'.'}
@@ -34,11 +32,12 @@ function Copyright(props) {
 
 const defaultTheme = createTheme();
 
-function Register() {
+export default function Register() {
+
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [repassword, setRePassword] = useState('');
-    const handleSubmit = async (event) => {
+    const HandleSubmit = async (event) => {
         event.preventDefault();
         const formData = new FormData();
         formData.append('name',username);
@@ -52,12 +51,12 @@ function Register() {
             if (response.ok) {
                 const jsonData = await response.json(); //获取响应json中的数据
                 const identity =jsonData.data["Identity"];
-                const navigate = useNavigate();
+                //const navigate = useNavigate();
                 localStorage.setItem('token', identity);
                 // window.location.href = '../chatRoom/chatRoom.js';
 
                 // 执行页面跳转
-                navigate('/SignInside');
+                //navigate('/SignInside');
 
             } else {
                 alert('Invalid credentials');
@@ -78,7 +77,6 @@ function Register() {
                     sm={4}
                     md={7}
                     sx={{
-                        backgroundImage: `url(${MyImg})`,
                         backgroundRepeat: 'no-repeat',
                         backgroundColor: (t) =>
                             t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
@@ -102,7 +100,7 @@ function Register() {
                         <Typography component="h1" variant="h5">
                             Register
                         </Typography>
-                        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+                        <Box component="form" noValidate onSubmit={HandleSubmit} sx={{ mt: 1 }}>
                             <TextField
                                 margin="normal"
                                 required

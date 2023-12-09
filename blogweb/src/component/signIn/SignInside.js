@@ -12,7 +12,7 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import MyImg from 'D:/Project/go/GolangChat/blogweb/src/img/index.jpg'
+import MyImg from '../img/index.jpg'
 import {useState} from "react";
 import { useNavigate } from 'react-router-dom';
 
@@ -39,7 +39,7 @@ export default function SignInSide() {
     const [password, setPassword] = useState('');
     // 获取路由历史记录对象
     const navigate = useNavigate();
-    const handleSubmit = async (event) => {
+    const HandleSubmit = async (event) => {
         event.preventDefault();
         const formData = new FormData();
         formData.append('name',username);
@@ -101,7 +101,7 @@ export default function SignInSide() {
                         <Typography component="h1" variant="h5">
                             Sign in
                         </Typography>
-                        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+                        <Box component="form" noValidate onSubmit={HandleSubmit} sx={{ mt: 1 }}>
                             <TextField
                                 margin="normal"
                                 required
@@ -144,7 +144,7 @@ export default function SignInSide() {
                                     </Link>
                                 </Grid>
                                 <Grid item>
-                                    <Link href="#" variant="body2">
+                                    <Link href={`/register`} variant="body2">
                                         {"Don't have an account? Sign Up"}
                                     </Link>
                                 </Grid>

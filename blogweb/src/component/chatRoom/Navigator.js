@@ -13,9 +13,10 @@ import DnsRoundedIcon from '@mui/icons-material/DnsRounded';
 import PermMediaOutlinedIcon from '@mui/icons-material/PhotoSizeSelectActual';
 import PublicIcon from '@mui/icons-material/Public';
 import personalPage from "../personalMsg/personalPage";
-import groupPage from "./groupPage";
+import groupPage from "../groupMsg/groupPage";
 import Content from "./Content";
-import ContactPage from "./contactPage";
+import ContactPage from "../contact/contactPage";
+import {Route, Router} from "react-router-dom";
 
 const categories = [
     {
@@ -26,10 +27,23 @@ const categories = [
                 icon: <PeopleIcon />,
                 active: true,
                 className:'personal',
+                link:'/chatroom/personal',
             },
-            { id: '群聊', icon: <DnsRoundedIcon />,className:'group', },
-            { id: '图片', icon: <PermMediaOutlinedIcon />,className:'picture', },
-            { id: '联系人', icon: <PublicIcon />,className:'contact', },
+            { id: '群聊',
+                icon: <DnsRoundedIcon />,
+                className:'group',
+                link:'/chatroom/group',
+},
+            { id: '图片',
+                icon: <PermMediaOutlinedIcon />,
+                className:'picture',
+                link:'/chatroom/group',
+            },
+            { id: '联系人',
+                icon: <PublicIcon />,
+                className:'contact',
+                link:'/chatroom/contact',
+            },
         ],
     },
 ];
@@ -48,66 +62,74 @@ const itemCategory = {
     py: 1.5,
     px: 3,
 };
+//
+// export async function loader() {
+//     const
+// }
 
 export default function Navigator(props) {
     const { ...other } = props;
-    const defaultnavigator = ""
-    const [selectOption, setSelectedOption] = React.useState(defaultnavigator);
-    const handleClick = (option) => {
-        setSelectedOption(option);
-    }
-    const renderPage = (selectOption) => {
-        switch (selectOption) {
-            // case 'personal':
-            //     return <personalPage/>;
-            //     break;
-            // case 'picture':
-            //     contentcomponent = <picturePage/>;
-            //     break;
-            // case 'group':
-            //     contentcomponent = <groupPage/>;
-            //     break;
-            case 'contact':
-                return <ContactPage/>;
-            case 'room':
-                return <Content/>;
-    }
+    // const defaultnavigator = ""
+    // const [selectOption, setSelectedOption] = React.useState(defaultnavigator);
+    // const handleClick = (option) => {
+    //     setSelectedOption(option);
+    // }
+    // const renderPage = (selectOption) => {
+    //     switch (selectOption) {
+    //         // case 'personal':
+    //         //     return <personalPage/>;
+    //         //     break;
+    //         // case 'picture':
+    //         //     contentcomponent = <picturePage/>;
+    //         //     break;
+    //         // case 'group':
+    //         //     contentcomponent = <groupPage/>;
+    //         //     break;
+    //         case 'contact':
+    //             return <ContactPage/>;
+    //         case 'room':
+    //             return <Content/>;
+    // }
 
 
-    };
+
     return (
-        <Drawer variant="permanent" {...other}>
-            <List disablePadding>
-                <ListItem sx={{ ...item, ...itemCategory, fontSize: 22, color: '#fff' }}>
-                    聊天室
-                </ListItem>
-                <ListItem sx={{ ...item, ...itemCategory }}>
-                    <ListItemIcon>
-                        <HomeIcon />
-                    </ListItemIcon>
-                    <ListItemText>聊天大厅</ListItemText>
-                </ListItem>
-                {categories.map(({ id, children}) => (
-                    <Box key={id} sx={{ bgcolor: '#101F33' }}>
-                        <ListItem sx={{ py: 2, px: 3 }}>
-                            <ListItemText sx={{ color: '#fff' }}>{id}</ListItemText>
-                        </ListItem>
-                        {children.map(({ id: childId, icon, active ,className}) => (
-                            <ListItem disablePadding key={childId}>
-                                <ListItemButton selected={active} sx={item} onclick={() => handleClick(setSelectedOption(className))}>
-                                    <ListItemIcon>{icon}</ListItemIcon>
-                                    <ListItemText>{childId}</ListItemText>
-                                </ListItemButton>
+            <Drawer variant="permanent" {...other}>
+                <List disablePadding>
+                    <ListItem sx={{ ...item, ...itemCategory, fontSize: 22, color: '#fff' }}>
+                        聊天室
+                    </ListItem>
+                    <ListItem sx={{ ...item, ...itemCategory }}>
+                        <ListItemIcon>
+                            <HomeIcon />
+                        </ListItemIcon>
+                        <ListItemText>聊天大厅</ListItemText>
+                    </ListItem>
+                    {categories.map(({ id, children}) => (
+                        <Box key={id} sx={{ bgcolor: '#101F33' }}>
+                            <ListItem sx={{ py: 2, px: 3 }}>
+                                <ListItemText sx={{ color: '#fff' }}>{id}</ListItemText>
                             </ListItem>
-                        ))}
-                        <div>
-                            {renderPage(selectOption)}
-                        </div>
-                        <Divider sx={{ mt: 2 }} />
-                    </Box>
+                            {children.map(({ id: childId, icon, active, link ,className}) => (
+                                <ListItem disablePadding key={childId}>
+                                    <ListItemButton selected={active} sx={item}>
+                                        <ListItemIcon>{icon}</ListItemIcon>
+                                        <ListItemText>{childId}</ListItemText>
+                                        <link
+                                            to={link}
+                                            key={childId}
+                                            sx={item}
+                                            //onClick={() => handleClick(className)}
+                                        />
+                                    </ListItemButton>
 
-                ))}
-            </List>
-        </Drawer>
+                                </ListItem>
+                            ))}
+                            <Divider sx={{ mt: 2 }} />
+                        </Box>
+
+                    ))}
+                </List>
+            </Drawer>
     );
-}
+};
