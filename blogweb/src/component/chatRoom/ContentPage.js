@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import {useState} from "react";
 
-export default function Content() {
+export default function ContentPage() {
         const [messages, setMessages] = useState([]);
         const [inputValue, setInputValue] = useState('');
 
