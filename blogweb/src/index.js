@@ -8,6 +8,7 @@ import Register from "./component/register/register";
 import ContactPage from "./component/contact/contactPage";
 import GroupPage from "./component/groupMsg/groupPage";
 import PersonalPage from "./component/personalMsg/personalPage";
+import ContentPage from "./component/chatRoom/ContentPage";
 const router = createBrowserRouter([
     {
         path: "/",
@@ -28,6 +29,7 @@ const router = createBrowserRouter([
                 path: "/chatroom/contact",
                 element: <ContactPage/>,
             },
+
             {
                 path:"/chatroom/group",
                 element: <GroupPage/>,
@@ -35,6 +37,10 @@ const router = createBrowserRouter([
             {
                 path:"/chatroom/personal",
                 element: <PersonalPage/>,
+            },
+            {
+                path:"/chatroom/content",
+                element: <ContentPage/>
             }
         ],
     },
