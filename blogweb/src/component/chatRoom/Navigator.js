@@ -14,9 +14,9 @@ import PermMediaOutlinedIcon from '@mui/icons-material/PhotoSizeSelectActual';
 import PublicIcon from '@mui/icons-material/Public';
 import personalPage from "../personalMsg/personalPage";
 import groupPage from "../groupMsg/groupPage";
-import Content from "./Content";
+import ContentPage from "./ContentPage";
 import ContactPage from "../contact/contactPage";
-import {Route, Router} from "react-router-dom";
+import {Route, Router, useNavigate} from "react-router-dom";
 
 const categories = [
     {
@@ -62,36 +62,32 @@ const itemCategory = {
     py: 1.5,
     px: 3,
 };
-//
-// export async function loader() {
-//     const
-// }
+
 
 export default function Navigator(props) {
     const { ...other } = props;
-    // const defaultnavigator = ""
-    // const [selectOption, setSelectedOption] = React.useState(defaultnavigator);
-    // const handleClick = (option) => {
-    //     setSelectedOption(option);
-    // }
-    // const renderPage = (selectOption) => {
-    //     switch (selectOption) {
-    //         // case 'personal':
-    //         //     return <personalPage/>;
-    //         //     break;
-    //         // case 'picture':
-    //         //     contentcomponent = <picturePage/>;
-    //         //     break;
-    //         // case 'group':
-    //         //     contentcomponent = <groupPage/>;
-    //         //     break;
-    //         case 'contact':
-    //             return <ContactPage/>;
-    //         case 'room':
-    //             return <Content/>;
-    // }
-
-
+    const navigate = useNavigate();
+    const HandleClick = ({className}) => {
+        console.log(className)
+        // 处理点击事件的逻辑
+        switch (className) {
+            case 'personal':
+                navigate('/chatroom/personal');
+                break;
+            case 'picture':
+                navigate('/chatroom/picture');
+                break;
+            case 'group':
+                navigate('/chatroom/group');
+                break;
+            case 'contact':
+                navigate('/chatroom/contact');
+                break;
+            default:
+                navigate('/chatroom/content');
+        };
+        return null;
+    };
 
     return (
             <Drawer variant="permanent" {...other}>
@@ -112,17 +108,10 @@ export default function Navigator(props) {
                             </ListItem>
                             {children.map(({ id: childId, icon, active, link ,className}) => (
                                 <ListItem disablePadding key={childId}>
-                                    <ListItemButton selected={active} sx={item}>
+                                    <ListItemButton selected={active} sx={item} onClick={() => HandleClick({ className })}>
                                         <ListItemIcon>{icon}</ListItemIcon>
                                         <ListItemText>{childId}</ListItemText>
-                                        <link
-                                            to={link}
-                                            key={childId}
-                                            sx={item}
-                                            //onClick={() => handleClick(className)}
-                                        />
                                     </ListItemButton>
-
                                 </ListItem>
                             ))}
                             <Divider sx={{ mt: 2 }} />
