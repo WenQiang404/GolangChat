@@ -25,7 +25,7 @@ const categories = [
             {
                 id: '个人资料',
                 icon: <PeopleIcon />,
-                active: true,
+                active: false,
                 className:'personal',
                 link:'/chatroom/personal',
             },
@@ -83,23 +83,26 @@ export default function Navigator(props) {
             case 'contact':
                 navigate('/chatroom/contact');
                 break;
-            default:
-                navigate('/chatroom/content');
         };
         return null;
     };
+    const HandleHallButton = () => {
+        navigate('/chatroom/content');
+    }
 
     return (
             <Drawer variant="permanent" {...other}>
                 <List disablePadding>
                     <ListItem sx={{ ...item, ...itemCategory, fontSize: 22, color: '#fff' }}>
-                        聊天室
+                        小豆聊天室
                     </ListItem>
-                    <ListItem sx={{ ...item, ...itemCategory }}>
-                        <ListItemIcon>
-                            <HomeIcon />
-                        </ListItemIcon>
-                        <ListItemText>聊天大厅</ListItemText>
+                    <ListItem sx={{ ...item, ...itemCategory , active: true}}>
+                        <ListItemButton onClick ={HandleHallButton}>
+                            <ListItemIcon>
+                                <HomeIcon />
+                            </ListItemIcon>
+                            <ListItemText>聊天大厅</ListItemText>
+                        </ListItemButton>
                     </ListItem>
                     {categories.map(({ id, children}) => (
                         <Box key={id} sx={{ bgcolor: '#101F33' }}>
