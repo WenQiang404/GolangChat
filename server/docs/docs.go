@@ -16,7 +16,7 @@ const docTemplate = `{
     "basePath": "{{.BasePath}}",
     "paths": {
         "/Login": {
-            "get": {
+            "post": {
                 "tags": [
                     "用户模块"
                 ],
@@ -124,6 +124,19 @@ const docTemplate = `{
             "get": {
                 "tags": [
                     "获取用户"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "code\", \"message\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "根据身份值获取用户"
                 ],
                 "responses": {
                     "200": {

@@ -13,8 +13,9 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import MyImg from '../img/index.jpg'
-import {useState} from "react";
+import {useContext, useState} from "react";
 import { useNavigate } from 'react-router-dom';
+import UserContext from "../../identity";
 
 function Copyright(props) {
 
@@ -39,6 +40,7 @@ export default function SignInSide() {
     const [password, setPassword] = useState('');
     // 获取路由历史记录对象
     const navigate = useNavigate();
+    const {login} = useContext(UserContext)
     const HandleSubmit = async (event) => {
         event.preventDefault();
         const formData = new FormData();
@@ -53,7 +55,7 @@ export default function SignInSide() {
                 const jsonData = await response.json(); //获取响应json中的数据
                 const identity =jsonData.data["Identity"];
                 localStorage.setItem('token', identity);
-                // window.location.href = '../chatRoom/chatRoom.js';
+                login(identity)
 
                 // 执行页面跳转
                navigate('/chatroom');

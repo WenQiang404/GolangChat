@@ -55,3 +55,8 @@ func FindUserByNameAndPwd(name, password string) modules.UserBasic {
 	DB.Model(&user).Where("id = ?", user.ID).Update("Identity", temp)
 	return user
 }
+func FindUserByIdentity(identity string) modules.UserBasic {
+	user := modules.UserBasic{}
+	DB.Where("Identity = ?", identity).First(&user)
+	return user
+}

@@ -22,6 +22,18 @@ func GetUser(c *gin.Context) {
 	})
 }
 
+// GetUserByIdentity
+// @Tags 根据身份值获取用户
+// @Success 200 {string} json{"code", "message"}
+// @Router /user/getUser [POST]
+func GetUserByIdentity(c *gin.Context) {
+	identity := c.PostForm("Identity")
+	data := utils.FindUserByIdentity(identity)
+	c.JSON(200, gin.H{
+		"message": data,
+	})
+}
+
 // CreateUser
 // @Summary 新增用户
 // @Tags 用户模块

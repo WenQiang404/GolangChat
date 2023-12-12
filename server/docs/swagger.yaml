@@ -2,7 +2,7 @@ info:
   contact: {}
 paths:
   /Login:
-    get:
+    post:
       parameters:
       - description: name
         in: formData
@@ -76,6 +76,14 @@ paths:
             type: string
       tags:
       - 获取用户
+    post:
+      responses:
+        "200":
+          description: code", "message"}
+          schema:
+            type: string
+      tags:
+      - 根据身份值获取用户
   /user/updateUser:
     post:
       parameters:

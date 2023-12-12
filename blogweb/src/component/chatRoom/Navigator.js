@@ -68,7 +68,7 @@ export default function Navigator(props) {
     const { ...other } = props;
     const navigate = useNavigate();
     const HandleClick = ({className}) => {
-        console.log(className)
+
         // 处理点击事件的逻辑
         switch (className) {
             case 'personal':

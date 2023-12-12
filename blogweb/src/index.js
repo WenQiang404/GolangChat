@@ -9,6 +9,7 @@ import ContactPage from "./component/contact/contactPage";
 import GroupPage from "./component/groupMsg/groupPage";
 import PersonalPage from "./component/personalMsg/personalPage";
 import ContentPage from "./component/chatRoom/ContentPage";
+import {UserProvider} from "./identity";
 const router = createBrowserRouter([
     {
         path: "/",
@@ -48,8 +49,10 @@ const router = createBrowserRouter([
 ]);
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <RouterProvider router={router}/>
-  </React.StrictMode>
+    <UserProvider>
+        <React.StrictMode>
+            <RouterProvider router={router}/>
+        </React.StrictMode>
+    </UserProvider>
 );
 
