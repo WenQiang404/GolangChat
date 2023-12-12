@@ -3,6 +3,8 @@ import AppBar from '@mui/material/AppBar';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import {useState} from "react";
+import Button from "@mui/material/Button";
+import index from '../css/index.modules.css'
 
 export default function ContentPage() {
         const [messages, setMessages] = useState([]);
@@ -27,7 +29,7 @@ export default function ContentPage() {
         };
 
     return (
-        <Paper sx={{ maxWidth: 936, margin: 'auto', overflow: 'hidden' }}>
+        <Paper sx={{ maxWidth: 936, margin: 'auto', overflow: 'hidden' , height:'100vh', flexDirection: 'column',}}>
             <AppBar
                 position="static"
                 color="default"
@@ -36,16 +38,20 @@ export default function ContentPage() {
             >
             </AppBar>
             <Typography sx={{ my: 5, mx: 2 }} color="text.secondary" align="center">
-                欢迎来到卢卢聊天室😘😊😁😍😎
+                欢迎来到聊天室😘😊😁😍😎
             </Typography>
-            <div>
-                <div style={{ maxHeight: '200px', overflowY: 'scroll' }}>
+            <div style={{display:'flex', flexDirection: 'column', height: '100%'}}>
+                <div style={{flex: '1', maxHeight: '200px', overflowY: 'scroll' }}>
                     {messages.map((message) => (
                         <div key={message.id}>{message.text}</div>
                     ))}
                 </div>
-                <input type="text" value={inputValue} onChange={handleInputChange} />
-                <button onClick={handleSendMessage}>Send</button>
+                <div style={{display: 'flex', justifyContent: 'flex-end', alignItems: 'center'}}>
+                    <input type="text" value={inputValue} onChange={handleInputChange} />
+                    <Button variant="contained" color="primary" onClick={handleSendMessage}>
+                        Send
+                    </Button>
+                </div>
             </div>
         </Paper>
     );
