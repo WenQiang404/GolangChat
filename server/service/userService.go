@@ -44,10 +44,11 @@ func GetUserByIdentity(c *gin.Context) {
 // @Router /user/createUser [get]
 func CreateUser(c *gin.Context) {
 	user := modules2.UserBasic{}
-	name := c.Query("name")
+	name := c.PostForm("name")
 	user.Name = name
-	password := c.Query("password")
-	repassword := c.Query("repassword")
+	password := c.PostForm("password")
+	repassword := c.PostForm("repassword")
+	email := c.PostForm("email")
 
 	if password != repassword {
 		c.JSON(200, gin.H{
@@ -83,6 +84,7 @@ func CreateUser(c *gin.Context) {
 	random := fmt.Sprintf("%06d", rand.Int31())
 	user.Password = utils.RandomEncrypt(password, random)
 	user.Random = random
+	user.Email = email
 	utils.CreateUser(user)
 	c.JSON(200, gin.H{
 		"code":    0,

@@ -6,19 +6,22 @@ import (
 
 type UserBasic struct {
 	gorm.Model
-	Identity      string
-	Name          string
-	Password      string
-	Phone         string `valid:"matches(^1[3-9]{1}\\d{9}$)"`
-	Email         string `valid:"email"`
-	ClientIp      string
-	ClientPort    string
-	LoginTime     string
-	HeartBeatTime string
-	LoginOutTime  string
-	IsLogOut      bool
-	DeviceInfo    string
-	Random        string
+	Identity       string
+	Name           string
+	Password       string
+	Phone          string `valid:"matches(^1[3-9]{1}\\d{9}$)"`
+	Email          string `valid:"email"`
+	ClientIp       string
+	ClientPort     string
+	LoginTime      string
+	HeartBeatTime  string
+	LoginOutTime   string
+	IsLogOut       bool
+	DeviceInfo     string
+	Random         string
+	ActivateToken  string
+	ActivateTime   string
+	ActivateStatus bool
 }
 
 func (table *UserBasic) TableName() string {
