@@ -45,4 +45,5 @@ func sendEmail(email string) {
 	vcode := fmt.Sprint("%06v", randNum.Int31n(1000000))
 
 	//发送的内容
+	//
 }
