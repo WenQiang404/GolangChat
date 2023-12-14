@@ -15,12 +15,10 @@ const router = createBrowserRouter([
         path: "/",
         element: <SignInSide/>,
         errorElement:<ErrorPage/>,
-        children: [
-            {
-                path: "/register",
-                element: <Register/>,
-            },
-        ],
+    },
+    {
+        path: "/register",
+        element: <Register/>,
     },
     {
         path:"/chatroom",
