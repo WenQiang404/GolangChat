@@ -20,10 +20,12 @@ func Router() *gin.Engine {
 	//首页
 	r.GET("/index", service.GetIndex)
 
+	//邮件校验
+	r.POST("/EmailCheck", service.EmailCheck)
 	//User相关
 	r.GET("/user/getUserList", service.GetUser)
 	r.POST("/user/getUserByIdentity", service.GetUserByIdentity)
-	r.GET("/user/createUser", service.CreateUser)
+	r.POST("/user/createUser", service.CreateUser)
 	r.GET("/user/deleteUser", service.DeleteUser)
 	r.POST("/user/updateUser", service.UpdateUser)
 	r.POST("/Login", service.Login)
