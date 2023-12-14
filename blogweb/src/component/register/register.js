@@ -13,7 +13,7 @@ import Button from "@mui/material/Button";
 import Link from "@mui/material/Link";
 import * as React from "react";
 import {useState} from "react";
-//import {useNavigate} from "react-router-dom";
+import MyImg from '../img/index.jpg'
 
 
 function Copyright(props) {
@@ -22,7 +22,7 @@ function Copyright(props) {
         <Typography variant="body2" color="text.secondary" align="center" {...props}>
             {'Copyright © '}
             <Link color="inherit" href="https://mui.com/">
-                lulu聊天室
+                小豆聊天室
             </Link>{' '}
             {new Date().getFullYear()}
             {'.'}
@@ -37,35 +37,56 @@ export default function Register() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [repassword, setRePassword] = useState('');
+
+    const [email, setEmail] = useState('');
+    const [isValid, setIsValid] = useState(true);
+
+    const handleEmailChange = (event) => {
+        const inputEmail = event.target.value;
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        setIsValid(emailRegex.test(inputEmail));
+        setEmail(inputEmail);
+    };
     const HandleSubmit = async (event) => {
         event.preventDefault();
         const formData = new FormData();
-        formData.append('name',username);
-        formData.append('password',password);
-        formData.append('repassword',repassword);
-        try{
-            const response = await fetch('http://localhost:8080/user/createUser', {
-                method: 'GET',
-                body: formData,
-            });
-            if (response.ok) {
-                const jsonData = await response.json(); //获取响应json中的数据
-                const identity =jsonData.data["Identity"];
-                //const navigate = useNavigate();
-                localStorage.setItem('token', identity);
-                // window.location.href = '../chatRoom/chatRoom.js';
+        if (username === null) {
+            alert("请输入用户名");
+            return
+        }else if (password !== repassword) {
+            alert("两次密码不一致！");
+            return
+        }else  {
+            formData.append('name',username);
+            formData.append('password',password);
+            formData.append('repassword',repassword);
+            formData.append('email',email);
+            try{
+                const response = await fetch('http://localhost:8080/user/createUser', {
+                    method: 'POST',
+                    body: formData,
+                });
+                if (response.ok) {
+                    const jsonData = await response.json(); //获取响应json中的数据
+                    const identity =jsonData.data["Identity"];
+                    //const navigate = useNavigate();
+                    localStorage.setItem('token', identity);
+                    // window.location.href = '../chatRoom/chatRoom.js';
 
-                // 执行页面跳转
-                //navigate('/SignInside');
+                    // 执行页面跳转
+                    //navigate('/SignInside');
 
-            } else {
-                alert('Invalid credentials');
-                console.log('Error:', response.status);
+                } else {
+                    alert('Invalid credentials');
+                    console.log('Error:', response.status);
+                }
+            }catch (error) {
+                console.log("Error to fetch:", error)
             }
-        }catch (error) {
-            console.log("Error to fetch:", error)
         }
     };
+
+
 
     return (
         <ThemeProvider theme={defaultTheme}>
@@ -77,6 +98,7 @@ export default function Register() {
                     sm={4}
                     md={7}
                     sx={{
+                        backgroundImage: `url(${MyImg})`,
                         backgroundRepeat: 'no-repeat',
                         backgroundColor: (t) =>
                             t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
@@ -125,29 +147,30 @@ export default function Register() {
                                 onChange={(event) => setPassword(event.target.value)}
                             />
                             <TextField
-                                margin="password"
+                                margin="normal"
                                 required
                                 fullWidth
                                 name="repassword"
-                                label="repassword"
-                                type="repassword"
+                                label="password"
+                                type="password"
                                 value={repassword}
                                 id="repassword"
                                 autoComplete="current-repassword"
                                 onChange={(event) => setRePassword(event.target.value)}
                             />
-                            {/*<TextField*/}
-                            {/*    margin="normal"*/}
-                            {/*    required*/}
-                            {/*    fullWidth*/}
-                            {/*    name="phone"*/}
-                            {/*    label="phone"*/}
-                            {/*    type="phone"*/}
-                            {/*    value={phone}*/}
-                            {/*    id="phone"*/}
-                            {/*    autoComplete="current-phone"*/}
-                            {/*    onChange={(event) => setPhone(event.target.value)}*/}
-                            {/*/>*/}
+                            <TextField
+                                margin="normal"
+                                required
+                                fullWidth
+                                name="email"
+                                label="email"
+                                type="email"
+                                value={email}
+                                id="phone"
+                                autoComplete="current-email"
+                                onChange={handleEmailChange}
+                            >
+                                {!isValid && <p>Please enter a valid email address</p>} </TextField>
                             <FormControlLabel
                                 control={<Checkbox value="remember" color="primary" />}
                                 label="Remember me"
@@ -162,7 +185,7 @@ export default function Register() {
                             </Button>
                             <Grid container>
                                 <Grid item xs>
-                                    <Link href="#" variant="body2">
+                                    <Link href="/" variant="body2">
                                         {"Already has account? Return to login"}
                                     </Link>
                                 </Grid>
