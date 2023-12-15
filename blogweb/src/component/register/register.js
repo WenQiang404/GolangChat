@@ -14,7 +14,7 @@ import Link from "@mui/material/Link";
 import * as React from "react";
 import {useState} from "react";
 import MyImg from '../img/index.jpg'
-
+import CryptoJS from 'crypto-js'
 
 function Copyright(props) {
 
@@ -37,9 +37,10 @@ export default function Register() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [repassword, setRePassword] = useState('');
-
     const [email, setEmail] = useState('');
-    const [isValid, setIsValid] = useState(true);
+    const [isValid, setIsValid] = useState(true);       //邮箱格式校验
+    const [verify, setVerify] = useState('')            //邮箱验证码确认
+    const [showIcon, setShowIcon] = useState(false)
 
     const handleEmailChange = (event) => {
         const inputEmail = event.target.value;
@@ -47,6 +48,33 @@ export default function Register() {
         setIsValid(emailRegex.test(inputEmail));
         setEmail(inputEmail);
     };
+
+    const checkEmailValidation = () => {
+        const formDataEmail = new FormData();
+        formDataEmail.append('email',email);
+        try{
+            const response =  fetch('http://localhost:8080/register', {
+                method: 'POST',
+                body: formDataEmail,
+            });
+            if (response.ok) {
+                const jsonEmailData = response.json(); //获取响应json中的数据
+                const verifyCode =jsonEmailData.data["VerifyCode"];
+                if (verifyCode !== verify) {
+                    alert("验证码不正确！")
+                    setShowIcon(false);
+                }else {
+                    setShowIcon(true)
+                }
+
+            } else {
+                alert('邮箱校验失败');
+                console.log('Error:', response.status);
+            }
+        }catch (error) {
+            console.log("Error to fetch:", error)
+        }
+    }
     const HandleSubmit = async (event) => {
         event.preventDefault();
         const formData = new FormData();
@@ -57,12 +85,14 @@ export default function Register() {
             alert("两次密码不一致！");
             return
         }else  {
+            //加盐加密
+            const salt = 'thisisasaltmessage';
+            const encryptData = CryptoJS.SHA256(salt + password).toString();
             formData.append('name',username);
-            formData.append('password',password);
-            formData.append('repassword',repassword);
+            formData.append('password',encryptData);
             formData.append('email',email);
             try{
-                const response = await fetch('http://localhost:8080/user/createUser', {
+                const response = await fetch('http://localhost:8080/EmailCheck', {
                     method: 'POST',
                     body: formData,
                 });
@@ -122,7 +152,7 @@ export default function Register() {
                         <Typography component="h1" variant="h5">
                             Register
                         </Typography>
-                        <Box component="form" noValidate onSubmit={HandleSubmit} sx={{ mt: 1 }}>
+                        <Box component="form" noValidate  sx={{ mt: 1 }}>
                             <TextField
                                 margin="normal"
                                 required
@@ -171,6 +201,28 @@ export default function Register() {
                                 onChange={handleEmailChange}
                             >
                                 {!isValid && <p>Please enter a valid email address</p>} </TextField>
+                            <TextField
+                                margin="normal"
+                                required
+                                fullWidth
+                                name="verify"
+                                label="verify"
+                                type="verify"
+                                value={verify}
+                                id="password"
+                                autoComplete="current-verify"
+                                onChange={(event) => setVerify(event.target.value)}
+                            />
+                            <Button
+                                type="submit"
+                                variant="contained"
+                                sx={{ mt: 2, mb: 1 }}
+                                onClick={checkEmailValidation}
+                            >
+                                Check the email validation
+                                {showIcon && <img src={showIcon ? 'img/yes.png' : 'img/no.png'} alt="图标"/>}
+                            </Button>
+                            <br/>
                             <FormControlLabel
                                 control={<Checkbox value="remember" color="primary" />}
                                 label="Remember me"
@@ -180,6 +232,7 @@ export default function Register() {
                                 fullWidth
                                 variant="contained"
                                 sx={{ mt: 3, mb: 2 }}
+                                onSubmit={HandleSubmit}
                             >
                                Register
                             </Button>
