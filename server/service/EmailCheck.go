@@ -3,6 +3,7 @@ package service
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"gopkg.in/gomail.v2"
 	"math/rand"
 	"time"
 )
@@ -45,5 +46,22 @@ func sendEmail(email string) {
 	vcode := fmt.Sprint("%06v", randNum.Int31n(1000000))
 
 	//发送的内容
-	//
+	html := fmt.Sprintf(
+		`<div>
+					欢迎注册聊天室
+				</div>
+				<div>
+					<p>验证码为：%s</p>
+					</div>`, vcode)
+	m := gomail.NewMessage()
+	m.SetHeader(`From`, mailConf.Sender, "小地瓜")
+	m.SetHeader(`To`, mailConf.ReceiptList...)
+	m.SetHeader(`Subject`, mailConf.Title)
+	m.SetBody(`text/html`, html)
+	err := gomail.NewDialer(mailConf.SMTPAddr, mailConf.SMTPPort, mailConf.Sender, mailConf.SPassword)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Println("success")
 }
