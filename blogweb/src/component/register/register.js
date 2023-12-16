@@ -41,6 +41,7 @@ export default function Register() {
     const [isValid, setIsValid] = useState(true);       //邮箱格式校验
     const [verify, setVerify] = useState('')            //邮箱验证码确认
     const [showIcon, setShowIcon] = useState(false)
+    let verifyCode = ""
 
     const handleEmailChange = (event) => {
         const inputEmail = event.target.value;
@@ -59,14 +60,7 @@ export default function Register() {
             });
             if (response.ok) {
                 const jsonEmailData = response.json(); //获取响应json中的数据
-                const verifyCode =jsonEmailData.data["VerifyCode"];
-                if (verifyCode !== verify) {
-                    alert("验证码不正确！")
-                    setShowIcon(false);
-                }else {
-                    setShowIcon(true)
-                }
-
+                verifyCode =jsonEmailData.data["VerifyCode"];
             } else {
                 alert('邮箱校验失败');
                 console.log('Error:', response.status);
@@ -84,7 +78,12 @@ export default function Register() {
         }else if (password !== repassword) {
             alert("两次密码不一致！");
             return
-        }else  {
+        }else if (verifyCode !== verify) {
+            alert("验证码不正确！")
+            setShowIcon(false);
+            return
+        }else {
+            setShowIcon(true)
             //加盐加密
             const salt = 'thisisasaltmessage';
             const encryptData = CryptoJS.SHA256(salt + password).toString();
@@ -219,7 +218,7 @@ export default function Register() {
                                 sx={{ mt: 2, mb: 1 }}
                                 onClick={checkEmailValidation}
                             >
-                                Check the email validation
+                                Send Email
                                 {showIcon && <img src={showIcon ? 'img/yes.png' : 'img/no.png'} alt="图标"/>}
                             </Button>
                             <br/>
