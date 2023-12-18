@@ -27,3 +27,143 @@ runtime.goexit
 2023-11-28T11:37:28.970+0800	INFO	server/main.go:18	success to init redis at 
 2023-11-28T11:49:14.322+0800	INFO	server/main.go:17	Init the mySql at
 2023-11-28T11:49:14.674+0800	INFO	server/main.go:18	success to init redis at 
+2023-11-28T20:37:25.466+0800	INFO	server/main.go:17	Init the mySql at
+2023-11-28T20:37:25.585+0800	INFO	server/main.go:18	success to init redis at 
+2023-11-28T21:04:15.285+0800	INFO	server/main.go:17	Init the mySql at
+2023-11-28T21:04:15.347+0800	INFO	server/main.go:18	success to init redis at 
+2023-11-28T21:05:13.517+0800	FATAL	server/main.go:16	Failed to initConfig File "app" Not Found in "[D:\\Project\\go\\GolangChat\\server\\server\\config]"
+main.main
+	D:/Project/go/GolangChat/server/main.go:16
+runtime.main
+	C:/Users/ww/sdk/go1.20.4/src/runtime/proc.go:250
+2023-11-28T21:08:28.108+0800	FATAL	server/main.go:16	Failed to initConfig File "app" Not Found in "[D:\\Project\\go\\GolangChat\\server\\config]"
+main.main
+	D:/Project/go/GolangChat/server/main.go:16
+runtime.main
+	C:/Users/ww/sdk/go1.20.4/src/runtime/proc.go:250
+2023-11-28T21:09:11.347+0800	FATAL	server/main.go:16	Failed to initConfig File "app" Not Found in "[D:\\Project\\go\\GolangChat\\server\\config]"
+main.main
+	D:/Project/go/GolangChat/server/main.go:16
+runtime.main
+	C:/Users/ww/sdk/go1.20.4/src/runtime/proc.go:250
+2023-11-28T21:09:51.791+0800	INFO	server/main.go:17	Init the mySql at
+2023-11-28T21:09:51.853+0800	INFO	server/main.go:18	success to init redis at 
+2023-11-28T21:21:04.937+0800	INFO	server/main.go:17	Init the mySql!
+2023-11-28T21:21:05.774+0800	INFO	server/main.go:18	success to init redis! 
+2023-11-28T21:45:09.980+0800	INFO	server/main.go:17	Init the mySql!
+2023-11-28T21:45:10.020+0800	INFO	server/main.go:18	success to init redis! 
+2023-11-29T15:53:51.661+0800	INFO	server/main.go:17	Init the mySql!
+2023-11-29T15:53:51.758+0800	INFO	server/main.go:18	success to init redis! 
+2023-11-29T16:47:27.038+0800	INFO	server/main.go:17	Init the mySql!
+2023-11-29T16:47:27.117+0800	INFO	server/main.go:18	success to init redis! 
+2023-11-29T16:50:46.031+0800	INFO	server/main.go:17	Init the mySql!
+2023-11-29T16:50:46.112+0800	INFO	server/main.go:18	success to init redis! 
+2023-11-29T16:56:17.693+0800	ERROR	server/main.go:17	Failed to init the MySQL tabledial tcp 101.133.169.145:33060: connectex: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+main.main
+	D:/Project/go/GolangChat/server/main.go:17
+runtime.main
+	C:/Users/ww/sdk/go1.20.4/src/runtime/proc.go:250
+2023-11-29T16:56:17.864+0800	INFO	server/main.go:18	success to init redis! 
+2023-11-29T16:56:50.356+0800	INFO	server/main.go:17	Init the mySql!
+2023-11-29T16:56:50.429+0800	INFO	server/main.go:18	success to init redis! 
+2023-11-29T17:04:22.094+0800	INFO	server/main.go:17	Init the mySql!
+2023-11-29T17:04:22.178+0800	INFO	server/main.go:18	success to init redis! 
+2023-11-29T17:14:54.792+0800	INFO	server/main.go:17	Init the mySql!
+2023-11-29T17:14:54.879+0800	INFO	server/main.go:18	success to init redis! 
+2023-11-29T17:16:06.113+0800	INFO	server/main.go:17	Init the mySql!
+2023-11-29T17:16:06.206+0800	INFO	server/main.go:18	success to init redis! 
+2023-11-29T17:36:16.424+0800	INFO	server/main.go:17	Init the mySql!
+2023-11-29T17:36:16.527+0800	INFO	server/main.go:18	success to init redis! 
+2023-11-29T17:38:56.288+0800	INFO	server/main.go:17	Init the mySql!
+2023-11-29T17:38:56.378+0800	INFO	server/main.go:18	success to init redis! 
+2023-11-29T17:53:51.390+0800	INFO	server/main.go:16	Init the mySql!
+2023-11-29T17:53:51.496+0800	INFO	server/main.go:17	success to init redis! 
+2023-11-29T18:00:09.770+0800	INFO	server/main.go:17	success to init redis! 
+2023-11-29T18:00:39.783+0800	INFO	utils/user_basic.go:34	Init the mySql!
+2023-11-29T18:12:49.916+0800	INFO	server/main.go:16	Init the mySql!
+2023-11-29T18:12:50.009+0800	INFO	server/main.go:17	success to init redis! 
+2023-11-29T18:14:00.260+0800	INFO	server/main.go:16	Init the mySql!
+2023-11-29T18:14:00.345+0800	INFO	server/main.go:17	success to init redis! 
+2023-11-30T09:56:43.415+0800	INFO	server/main.go:16	Init the mySql!
+2023-11-30T09:56:43.522+0800	INFO	server/main.go:17	success to init redis! 
+2023-11-30T10:07:54.265+0800	INFO	server/main.go:16	Init the mySql!
+2023-11-30T10:07:54.361+0800	INFO	server/main.go:17	success to init redis! 
+2023-11-30T10:14:59.952+0800	INFO	server/main.go:17	success to init redis! 
+2023-11-30T15:46:24.207+0800	INFO	server/main.go:17	success to init redis! 
+2023-11-30T15:51:21.458+0800	INFO	server/main.go:17	success to init redis! 
+2023-11-30T15:56:03.268+0800	INFO	server/main.go:17	success to init redis! 
+2023-11-30T16:06:10.417+0800	INFO	server/main.go:17	success to init redis! 
+2023-11-30T16:14:06.919+0800	INFO	server/main.go:17	success to init redis! 
+2023-11-30T16:35:01.776+0800	INFO	server/main.go:17	success to init redis! 
+2023-11-30T16:39:56.787+0800	INFO	server/main.go:17	success to init redis! 
+2023-11-30T17:01:46.387+0800	INFO	server/main.go:17	success to init redis! 
+2023-11-30T17:26:16.479+0800	INFO	server/main.go:17	success to init redis! 
+2023-12-01T10:09:44.782+0800	INFO	server/main.go:18	success to init redis! 
+2023-12-01T10:20:03.945+0800	INFO	server/main.go:18	success to init redis! 
+2023-12-02T09:34:51.875+0800	INFO	server/main.go:18	success to init redis! 
+2023-12-04T10:42:55.929+0800	INFO	server/main.go:18	success to init redis! 
+2023-12-05T16:47:45.553+0800	INFO	server/main.go:18	success to init redis! 
+2023-12-09T11:07:55.674+0800	INFO	server/main.go:18	success to init redis! 
+2023-12-11T09:23:13.731+0800	INFO	server/main.go:18	success to init redis! 
+2023-12-12T10:25:19.173+0800	INFO	server/main.go:18	success to init redis! 
+2023-12-12T11:06:14.433+0800	INFO	server/main.go:18	success to init redis! 
+2023-12-12T11:09:02.683+0800	INFO	server/main.go:18	success to init redis! 
+2023-12-12T11:14:50.645+0800	INFO	server/main.go:18	success to init redis! 
+2023-12-12T11:15:58.388+0800	INFO	server/main.go:18	success to init redis! 
+2023-12-13T13:20:13.066+0800	INFO	server/main.go:18	success to init redis! 
+2023-12-15T16:02:40.625+0800	INFO	server/main.go:19	success to init redis! 
+2023-12-15T19:37:07.788+0800	INFO	server/main.go:18	success to init redis! 
+2023-12-15T19:39:39.845+0800	ERROR	gin@v1.9.1/context.go:174	邮箱格式错误
+github.com/gin-gonic/gin.(*Context).Next
+	C:/Users/ww/go/bin/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+server/utils.Cors.func1
+	D:/Project/go/GolangChat/server/utils/cors.go:22
+github.com/gin-gonic/gin.(*Context).Next
+	C:/Users/ww/go/bin/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	C:/Users/ww/go/bin/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	C:/Users/ww/go/bin/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	C:/Users/ww/go/bin/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240
+github.com/gin-gonic/gin.(*Context).Next
+	C:/Users/ww/go/bin/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	C:/Users/ww/go/bin/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	C:/Users/ww/go/bin/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576
+net/http.serverHandler.ServeHTTP
+	C:/Users/ww/sdk/go1.20.4/src/net/http/server.go:2936
+net/http.(*conn).serve
+	C:/Users/ww/sdk/go1.20.4/src/net/http/server.go:1995
+2023-12-15T19:44:22.279+0800	ERROR	gin@v1.9.1/context.go:174	邮箱格式错误
+github.com/gin-gonic/gin.(*Context).Next
+	C:/Users/ww/go/bin/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+server/utils.Cors.func1
+	D:/Project/go/GolangChat/server/utils/cors.go:22
+github.com/gin-gonic/gin.(*Context).Next
+	C:/Users/ww/go/bin/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	C:/Users/ww/go/bin/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	C:/Users/ww/go/bin/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	C:/Users/ww/go/bin/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240
+github.com/gin-gonic/gin.(*Context).Next
+	C:/Users/ww/go/bin/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	C:/Users/ww/go/bin/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	C:/Users/ww/go/bin/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576
+net/http.serverHandler.ServeHTTP
+	C:/Users/ww/sdk/go1.20.4/src/net/http/server.go:2936
+net/http.(*conn).serve
+	C:/Users/ww/sdk/go1.20.4/src/net/http/server.go:1995
+2023-12-15T19:46:52.827+0800	INFO	server/main.go:18	success to init redis! 
+2023-12-15T20:37:51.128+0800	INFO	server/main.go:18	success to init redis! 
+2023-12-15T20:39:39.850+0800	INFO	service/registerService.go:26	目标用户：wenqiangsspu@163.com 邮件发送成功！
+2023-12-16T11:11:05.378+0800	INFO	server/main.go:18	success to init redis! 
+2023-12-16T11:31:00.708+0800	INFO	service/registerService.go:26	目标用户：wenqiangsspu@163.com 邮件发送成功！
+2023-12-16T11:52:17.549+0800	INFO	service/registerService.go:26	目标用户：wenqiang9946@163.com 邮件发送成功！
+2023-12-18T14:44:31.527+0800	INFO	server/main.go:18	success to init redis! 
+2023-12-18T14:46:34.853+0800	INFO	service/registerService.go:26	目标用户：wenqiang9946@163.com 邮件发送成功！

@@ -15,6 +15,9 @@ import * as React from "react";
 import {useState} from "react";
 import MyImg from '../img/index.jpg'
 import CryptoJS from 'crypto-js'
+import {useNavigate} from "react-router-dom";
+import identity from "../../identity";
+import {alertTitleClasses} from "@mui/material";
 
 function Copyright(props) {
 
@@ -22,7 +25,7 @@ function Copyright(props) {
         <Typography variant="body2" color="text.secondary" align="center" {...props}>
             {'Copyright © '}
             <Link color="inherit" href="https://mui.com/">
-                小豆聊天室
+                聊天室
             </Link>{' '}
             {new Date().getFullYear()}
             {'.'}
@@ -42,6 +45,7 @@ export default function Register() {
     const [verify, setVerify] = useState('')            //邮箱验证码确认
     const [showIcon, setShowIcon] = useState(false)
     let verifyCode = ""
+    const navigate = useNavigate();
 
     const handleEmailChange = (event) => {
         const inputEmail = event.target.value;
@@ -50,17 +54,25 @@ export default function Register() {
         setEmail(inputEmail);
     };
 
-    const checkEmailValidation = () => {
+    const checkEmailValidation = async (event) => {
+        event.preventDefault();
         const formDataEmail = new FormData();
         formDataEmail.append('email',email);
         try{
-            const response =  fetch('http://localhost:8080/register', {
+            const response =  await fetch('http://localhost:8080/checkEmail', {
                 method: 'POST',
                 body: formDataEmail,
             });
             if (response.ok) {
-                const jsonEmailData = response.json(); //获取响应json中的数据
-                verifyCode =jsonEmailData.data["VerifyCode"];
+                const jsonData = await response.json(); //获取响应json中的数据
+                const emailStatusCode = jsonData["code"];
+
+                if (emailStatusCode === -1) {
+                    alert("邮箱格式错误")
+
+                }else{
+                    verifyCode =emailStatusCode;
+                }
             } else {
                 alert('邮箱校验失败');
                 console.log('Error:', response.status);
@@ -69,19 +81,20 @@ export default function Register() {
             console.log("Error to fetch:", error)
         }
     }
+
     const HandleSubmit = async (event) => {
-        event.preventDefault();
+
         const formData = new FormData();
         if (username === null) {
             alert("请输入用户名");
-            return
+
         }else if (password !== repassword) {
             alert("两次密码不一致！");
-            return
+
         }else if (verifyCode !== verify) {
             alert("验证码不正确！")
             setShowIcon(false);
-            return
+
         }else {
             setShowIcon(true)
             //加盐加密
@@ -91,19 +104,23 @@ export default function Register() {
             formData.append('password',encryptData);
             formData.append('email',email);
             try{
-                const response = await fetch('http://localhost:8080/EmailCheck', {
+                const response = await fetch('http://localhost:8080/createUser', {
                     method: 'POST',
                     body: formData,
                 });
                 if (response.ok) {
                     const jsonData = await response.json(); //获取响应json中的数据
-                    const identity =jsonData.data["Identity"];
-                    //const navigate = useNavigate();
-                    localStorage.setItem('token', identity);
-                    // window.location.href = '../chatRoom/chatRoom.js';
+                    const code =jsonData.data["code"];
+                    if (code === -1) {
+                        alert("用户名已经注册！")
+                    }else if (code === 1) {
 
-                    // 执行页面跳转
-                    //navigate('/SignInside');
+                        localStorage.setItem('token', identity);
+                        // 执行页面跳转
+                        navigate('/');
+                    }else {
+                        alert("return code is error")
+                    }
 
                 } else {
                     alert('Invalid credentials');
@@ -114,8 +131,6 @@ export default function Register() {
             }
         }
     };
-
-
 
     return (
         <ThemeProvider theme={defaultTheme}>

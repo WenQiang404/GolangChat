@@ -17,9 +17,6 @@ func Router() *gin.Engine {
 
 	//static
 
-	//首页
-	r.GET("/index", service.GetIndex)
-
 	//User相关
 	r.GET("/user/getUserList", service.GetUser)
 	r.POST("/user/getUserByIdentity", service.GetUserByIdentity)
@@ -27,8 +24,8 @@ func Router() *gin.Engine {
 	r.GET("/user/deleteUser", service.DeleteUser)
 	r.POST("/user/updateUser", service.UpdateUser)
 	r.POST("/Login", service.Login)
-	r.POST("/register", service.Register)
-
+	r.POST("/checkEmail", service.CheckEmail)
+	//r.POST("/register", service.Register)
 	//Message相关
 	r.GET("/user/sendMsg", service.SendMsg)
 	r.GET("user/sendUserMsg", service.SendUserMessage)

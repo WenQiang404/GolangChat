@@ -45,34 +45,10 @@ func GetUserByIdentity(c *gin.Context) {
 func CreateUser(c *gin.Context) {
 	user := modules2.UserBasic{}
 	name := c.PostForm("name")
-	user.Name = name
 	password := c.PostForm("password")
-	repassword := c.PostForm("repassword")
 	email := c.PostForm("email")
 
-	if password != repassword {
-		c.JSON(200, gin.H{
-			"code":    -1,
-			"message": "两次密码不一致",
-		})
-		return
-	}
-	if name == "" {
-		c.JSON(200, gin.H{
-			"code":    -1,
-			"message": "请输入用户名",
-		})
-		return
-	}
-	if password == "" {
-		c.JSON(200, gin.H{
-			"code":    -1,
-			"message": "请输入密码",
-		})
-		return
-	}
 	data := utils.FindUserByName(name)
-	//fmt.Println("+++++++++++++++++++++++")
 	if data.Name != "" {
 		c.JSON(200, gin.H{
 			"code":    -1,
@@ -82,6 +58,7 @@ func CreateUser(c *gin.Context) {
 	}
 
 	random := fmt.Sprintf("%06d", rand.Int31())
+	user.Name = name
 	user.Password = utils.RandomEncrypt(password, random)
 	user.Random = random
 	user.Email = email
